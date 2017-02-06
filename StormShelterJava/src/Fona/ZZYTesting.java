@@ -12,7 +12,6 @@ public class ZZYTesting {
 		
 		fona.batteryPercent();
 		
-		
 		System.out.println("Finished");
 	}
 
