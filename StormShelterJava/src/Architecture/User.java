@@ -4,19 +4,24 @@ import java.util.Date;
 
 public class User {
 	
-	private final static int PANIC_TIME = 10 * 1000; 
+	private static int ID = 0;
+	
+	private final int PANIC_TIME = 10 * 1000;
 	
 	//User variables
-	private String name; 
-	private ArrayList<Contact> contacts;
+	public final String name; 
+	public final int id;
+	public final ArrayList<Contact> contacts;
 	
 	//Class variables
 	private long entertime;
-	private boolean panicked; 
+	public boolean panicked; 
 	
 	//Creates a new user object
 	public User(String name, ArrayList<Contact> contacts) {
 		this.name = name;
+		this.id = ID++;
+		this.contacts = contacts;
 		this.entertime = Long.MAX_VALUE;
 		this.panicked = false; 
 	}
@@ -37,17 +42,8 @@ public class User {
 	public boolean check() {
 		long currenttime = new Date().getTime();
 		if(currenttime-entertime > PANIC_TIME && !panicked) {
-			this.panicked = true; 
-			double minutes = PANIC_TIME / (60 * 1000);
-			pingAllContacts(name + " has been in their shelter for over " + minutes + " minutes.");
-		}
+			this.panicked = true;}
 		return panicked;
-	}
-
-	//Sends a message to all the user's emergency contacts
-	private void pingAllContacts(String string) {
-		for(Contact contact: contacts) {
-			contact.sendMessage(string);}
 	}
 	
 }
