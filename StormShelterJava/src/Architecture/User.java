@@ -3,47 +3,78 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
-	
-	private static int ID = 0;
-	
+
 	private final int PANIC_TIME = 10 * 1000;
-	
+
 	//User variables
 	public final String name; 
-	public final int id;
+	public final String id;
 	public final ArrayList<Contact> contacts;
-	
+
 	//Class variables
 	private long entertime;
-	public boolean panicked; 
-	
+	private boolean panicked;
+	public boolean alertedtimeout;
+	public boolean alertedpanic; 
+
 	//Creates a new user object
-	public User(String name, ArrayList<Contact> contacts) {
+	public User(String id, String name, ArrayList<Contact> contacts) {
+		this.id = id; 
 		this.name = name;
-		this.id = ID++;
 		this.contacts = contacts;
 		this.entertime = Long.MAX_VALUE;
 		this.panicked = false; 
 	}
-	
+
+	//Runs the requested operation
+	public void runOperation(Operation operation) {
+		switch(operation) {
+		case ENTER_SHELTER: shelterEnter(); break;
+		case EXIT_SHELTER:  shelterExit(); break;
+		case PANIC: panic(); break;
+		case UNPANIC: unpanic(); break;
+		default: break;
+		}
+	}
+
 	//The user has entered their shelter
-	public void shelterEnter() {
+	private void shelterEnter() {
 		this.entertime = new Date().getTime();
-		this.panicked = false;
+		this.alertedtimeout = false;
+	}
+
+	//The user has left their shelter
+	private void shelterExit() {
+		this.entertime = Long.MAX_VALUE;
+		this.alertedtimeout = false; 
 	}
 	
-	//The user has left their shelter
-	public void shelterExit() {
-		this.entertime = Long.MAX_VALUE;
+	//The user has hit the panic button
+	private void panic() {
+		this.alertedpanic = false;
+		this.panicked = true;
+	}
+	
+	//The user has canceled the panic button
+	private void unpanic() {
+		this.alertedpanic = false;
 		this.panicked = false; 
 	}
 	
-	//Check to make sure the user is ok
-	public boolean check() {
-		long currenttime = new Date().getTime();
-		if(currenttime-entertime > PANIC_TIME && !panicked) {
-			this.panicked = true;}
-		return panicked;
+	//Returns the total amount of time the user has been in the shelter
+	public int timeInShelter() {
+		return (int)(new Date().getTime() - entertime);
+	}
+
+	//Checks to see if the user has been in their shelter for too long
+	public boolean checkShelterTimeout() {
+		if(timeInShelter() > PANIC_TIME) {return true;}
+		return false;
 	}
 	
+	//Checks to see if the user has hit the panic button
+	public boolean checkPanicked() {
+		return this.panicked; 
+	}
+
 }
