@@ -14,7 +14,7 @@ public class Server {
 
 	//Initializing server variables
 	private static HashMap<String, User> users = new HashMap<String, User>();
-	private static HashSet<String> admins;
+	private static HashSet<String> admins = new HashSet<String>();
 	private static ServerSMSHandler handler = new ServerSMSHandler();
 	private static FonaWrapper fona = new FonaWrapper();
 	
