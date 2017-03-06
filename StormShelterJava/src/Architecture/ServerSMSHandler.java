@@ -27,6 +27,7 @@ public class ServerSMSHandler implements FonaEventHandler {
 
 	@Override
 	public void onSmsMessageReceived(FonaSmsMessage message) {
+		System.out.println("Recieved Message: " + message.message);
 		queue.add(message);}
 
 }
