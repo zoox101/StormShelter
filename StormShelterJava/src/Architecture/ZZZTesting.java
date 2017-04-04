@@ -7,9 +7,7 @@ public class ZZZTesting {
 		//String test = Operation.ENTER_SHELTER.toString();
 		//System.out.println(test);
 		
-		System.out.println(1111.11 * 1000);
-		
-		System.out.println((double) Math.round(0.01213412 * 100)/100);
-		
+		double doubletimeinshelter = 0.0123904321049120;
+		System.out.println((double) Math.round(doubletimeinshelter * 100)/100);
 	}
 }
