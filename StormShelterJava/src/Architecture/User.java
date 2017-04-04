@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class User {
 
-	private final int PANIC_TIME = 10 * 1000;
+	private final int PANIC_TIME = 1 * 1000;
 
 	//User variables
 	public final String name; 

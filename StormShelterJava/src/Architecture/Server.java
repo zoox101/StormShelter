@@ -62,14 +62,16 @@ public class Server {
 				String message = user.name + " has hit the panic button in the storm shelter.";
 				for(Contact contact: user.contacts) {
 					fona.smsSend(contact.phonenumber, message);}
+				user.alertedpanic = true;
 			}
 			
-			//If the user is panicked, alert their contacts
+			//If the user has been in their shelter too long, alert their contacts
 			else if(user.checkShelterTimeout() && !user.alertedtimeout) {
 				String minutesinshelter = Double.toString(((double)user.timeInShelter() / (60 * 1000)));
 				String message = user.name + " has been in their shelter for over " + minutesinshelter + " minutes.";
 				for(Contact contact: user.contacts) {
 					fona.smsSend(contact.phonenumber, message);}
+				user.alertedtimeout = true;
 			}
 			
 			//Should never hit this section
