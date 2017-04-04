@@ -67,7 +67,8 @@ public class Server {
 			
 			//If the user has been in their shelter too long, alert their contacts
 			else if(user.checkShelterTimeout() && !user.alertedtimeout) {
-				String minutesinshelter = Double.toString(((double)user.timeInShelter() / (60 * 1000)));
+				double doubletimeinshelter = ((double)user.timeInShelter() / (60 * 1000));
+				String minutesinshelter = Double.toString(((double) Math.round(doubletimeinshelter * 100)/100));
 				String message = user.name + " has been in their shelter for over " + minutesinshelter + " minutes.";
 				for(Contact contact: user.contacts) {
 					fona.smsSend(contact.phonenumber, message);}
