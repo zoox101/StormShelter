@@ -62,8 +62,8 @@ public class User {
 	}
 	
 	//Returns the total amount of time the user has been in the shelter
-	public int timeInShelter() {
-		return (int)(new Date().getTime() - entertime);
+	public long timeInShelter() {
+		return (new Date().getTime() - entertime);
 	}
 
 	//Checks to see if the user has been in their shelter for too long

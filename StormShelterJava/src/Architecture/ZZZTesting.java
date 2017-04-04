@@ -6,7 +6,5 @@ public class ZZZTesting {
 		
 		String test = Operation.ENTER_SHELTER.toString();
 		System.out.println(test);
-		
 	}
-
 }
